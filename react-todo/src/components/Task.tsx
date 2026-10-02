@@ -2,7 +2,7 @@ export interface TaskProps {
   completed: boolean;
   editing: boolean;
   description: string;
-  date: Date;
+  date: string;
 }
 
 export default function Task(props: TaskProps) {
