@@ -1,18 +1,28 @@
-import Task, { type TaskProps } from "./Task";
+import Task from "./Task";
+import { type TaskType } from "../types/types";
 
-export interface TaskListProps {
-  tasks: TaskProps[];
+interface TaskListProps {
+  tasks: TaskType[];
+  onDelete: (id: string) => void;
+  onComplete: (id: string) => void;
+  onSave: (id: string, text: string) => void;
 }
-export default function TaskList(props: TaskListProps) {
+
+export default function TaskList({
+  tasks,
+  onDelete,
+  onComplete,
+  onSave,
+}: TaskListProps) {
   return (
     <ul className="todo-list">
-      {props.tasks.map((task, index) => (
+      {tasks.map((task) => (
         <Task
-          key={index}
-          description={task.description}
-          completed={task.completed}
-          editing={task.editing}
-          date={task.date}
+          key={task.id}
+          {...task}
+          onDelete={onDelete}
+          onComplete={onComplete}
+          onSave={onSave}
         />
       ))}
     </ul>
