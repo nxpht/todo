@@ -37,9 +37,13 @@ function App() {
   function removeTask(id: string) {
     setTasks((prev) => prev.filter((task) => task.id !== id));
   }
+  // тут поменял на то чтобы бралось актуальное значение из prev 
   function toggleComplete(id: string) {
-    const task = tasks.find((task) => task.id === id);
-    if (task) updateTask(id, { completed: !task.completed });
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task,
+      ),
+    );
   }
 
   function saveTask(id: string, text: string) {
