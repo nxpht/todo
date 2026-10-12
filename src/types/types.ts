@@ -4,5 +4,6 @@ interface TaskType {
   description: string;
   date: Date;
 }
+type FilterType = "all" | "active" | "completed";
 
-export { type TaskType };
+export { type TaskType, type FilterType };
