@@ -10,7 +10,7 @@ function NewTaskForm({ onAdd }: NewTaskFormProps) {
       placeholder="What needs to be done?"
       autoFocus
       onKeyDown={(e) => {
-        if (e.key === "Enter") {
+        if (e.key === "Enter" && text !== "") {
           onAdd(text);
           setText("");
         }

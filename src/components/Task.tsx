@@ -1,5 +1,6 @@
 import { type TaskType } from "../types/types";
 import { formatDistanceToNow } from "date-fns";
+
 import { useState } from "react";
 interface TaskProps extends TaskType {
   onDelete: (id: string) => void;
@@ -31,7 +32,9 @@ export default function Task(props: TaskProps) {
         ></input>
         <label htmlFor={props.id}>
           <span className="description">{props.description}</span>
-          <span className="created">{formatDistanceToNow(props.date)}</span>
+          <span className="created">
+            {formatDistanceToNow(props.date, { addSuffix: true })}
+          </span>
         </label>
         <button
           className="icon icon-edit"
@@ -51,7 +54,10 @@ export default function Task(props: TaskProps) {
           className="edit"
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
-          onBlur={submit}
+          onBlur={() => {
+            submit();
+            setIsEditing(false);
+          }}
           autoFocus
           onKeyDown={(e) => {
             if (e.key === "Enter") {

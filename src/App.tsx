@@ -24,9 +24,7 @@ function App() {
     if (tasksFilter === "completed") return task.completed;
     return true;
   });
-  const unfinishedTasksCounter = tasks.filter(
-    (task) => !task.completed,
-  ).length;
+  const unfinishedTasksCounter = tasks.filter((task) => !task.completed).length;
   function updateTask(id: string, changes: Partial<TaskType>) {
     setTasks((prev) =>
       prev.map((task) => (task.id === id ? { ...task, ...changes } : task)),
@@ -35,7 +33,6 @@ function App() {
   function removeTask(id: string) {
     setTasks((prev) => prev.filter((task) => task.id !== id));
   }
-  // тут поменял на то чтобы бралось актуальное значение из prev
   function toggleComplete(id: string) {
     setTasks((prev) =>
       prev.map((task) =>
