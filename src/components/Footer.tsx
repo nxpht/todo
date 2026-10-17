@@ -9,7 +9,9 @@ interface FooterProps {
 function Footer({ onClear, tasksCount, filter, onFilterChange }: FooterProps) {
   return (
     <footer className="footer">
-      <span className="todo-count">{tasksCount} items left</span>
+      <span className="todo-count">
+        {tasksCount} {tasksCount > 1 ? "items" : "item"} left
+      </span>
       <TasksFilter filter={filter} onFilterChange={onFilterChange} />
       <button className="clear-completed" onClick={onClear}>
         Clear completed

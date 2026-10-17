@@ -19,7 +19,7 @@ export default function TaskList({
       {tasks.map((task) => (
         <Task
           key={task.id}
-          {...task}
+          task={task}
           onDelete={onDelete}
           onComplete={onComplete}
           onSave={onSave}

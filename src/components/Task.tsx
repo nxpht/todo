@@ -2,50 +2,54 @@ import { type TaskType } from "../types/types";
 import { formatDistanceToNow } from "date-fns";
 
 import { useState } from "react";
-interface TaskProps extends TaskType {
+interface TaskProps {
+  task: TaskType;
   onDelete: (id: string) => void;
   onComplete: (id: string) => void;
   onSave: (id: string, text: string) => void;
 }
 
-export default function Task(props: TaskProps) {
-  const [draft, setDraft] = useState(props.description);
+export default function Task({
+  task,
+  onDelete,
+  onComplete,
+  onSave,
+}: TaskProps) {
+  const [draft, setDraft] = useState(task.description);
   const [isEditing, setIsEditing] = useState(false);
-  const className = isEditing ? "editing" : props.completed ? "completed" : "";
+  const className = isEditing ? "editing" : task.completed ? "completed" : "";
   function submit() {
     const text = draft.trim();
-    if (!text) {
-      props.onDelete(props.id);
-    } else {
-      props.onSave(props.id, text);
+    if (text) {
+      onSave(task.id, text);
     }
   }
   return (
     <li className={className}>
       <div className="view">
         <input
-          id={props.id}
+          id={task.id}
           className="toggle"
           type="checkbox"
-          checked={props.completed}
-          onChange={() => props.onComplete(props.id)}
+          checked={task.completed}
+          onChange={() => onComplete(task.id)}
         ></input>
-        <label htmlFor={props.id}>
-          <span className="description">{props.description}</span>
+        <label htmlFor={task.id}>
+          <span className="description">{task.description}</span>
           <span className="created">
-            {formatDistanceToNow(props.date, { addSuffix: true })}
+            {formatDistanceToNow(task.date, { addSuffix: true })}
           </span>
         </label>
         <button
           className="icon icon-edit"
           onClick={() => {
-            setDraft(props.description);
+            setDraft(task.description);
             setIsEditing(true);
           }}
         ></button>
         <button
           className="icon icon-destroy"
-          onClick={() => props.onDelete(props.id)}
+          onClick={() => onDelete(task.id)}
         ></button>
       </div>
       {isEditing && (
